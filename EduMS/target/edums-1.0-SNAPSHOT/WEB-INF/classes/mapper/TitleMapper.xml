@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.uestc.java.group9.edums.mapper.TitleMapper">
+
+    <select id="queryAll" resultType="edu.uestc.java.group9.edums.entity.Title">
+		SELECT
+        TitleName,
+        BasicSalary,
+        GradeSalary,
+        PerformanceSalary
+		FROM
+			Title
+		LIMIT #{offset}, #{limit}
+	</select>
+
+    <select id="queryByTitleName" resultType="edu.uestc.java.group9.edums.entity.Title" parameterType="string">
+        <!-- 具体的sql -->
+        SELECT
+        TitleName,
+        BasicSalary,
+        GradeSalary,
+        PerformanceSalary
+        FROM
+        Title
+        WHERE
+        TitleName = #{titleName}
+    </select>
+
+    <update id="update">
+		UPDATE Title
+		SET TitleName = #{TitleName}, BasicSalary =#{BasicSalary},
+		GradeSalary =#{GradeSalary}, PerformanceSalary=#{PerformanceSalary}
+		WHERE
+			TitleName = #{TitleName}
+	</update>
+
+</mapper>

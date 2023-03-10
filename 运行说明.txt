@@ -1,0 +1,4 @@
+1. 先创建一个叫做 edums 的数据库，导入 edums.sql 中的数据
+2. 修改 resource/db.properties 中的数据库用户名和密码为自己的用户名和密码（默认是 root/root）
+3. 添加 Tomcat 部署 jar 包运行。
+4. 登录管理系统，目前有一个用户 admin/123456

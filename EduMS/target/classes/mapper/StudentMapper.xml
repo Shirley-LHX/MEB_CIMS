@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.uestc.java.group9.edums.mapper.StudentMapper">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+	<!--成绩查询部分-->
+    <select id="queryScrById" resultType="edu.uestc.java.group9.edums.entity.StuScore" >
+        <!-- 具体的sql -->
+        SELECT
+        *
+        FROM
+        stuscore
+        where
+		 id_stu = #{id} and term = #{t}
+    </select>
+
+	<select id="queryScrByIdList" resultType="edu.uestc.java.group9.edums.entity.StuScore" parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		*
+		FROM
+		stuscore
+		WHERE
+		id_stu = #{stuId}
+	</select>
+
+    <select id="queryAllScr" resultType="edu.uestc.java.group9.edums.entity.StuScore">
+		SELECT
+			*
+		FROM
+			stuscore
+		ORDER BY
+			id_stu
+		LIMIT #{offset}, #{limit}
+	</select>
+
+    <update id="updateSS">
+		UPDATE stuscore
+		SET chinese = #{chinese}, math =#{math}, english =#{english}, physical =#{physical}, chemical =#{chemical}, biology =#{biology}, history =#{history}, policy =#{policy}, geography =#{geography}, gym =#{gym}
+		WHERE
+			id_stu = #{stuId} and term=#{term}
+	</update>
+
+    <insert id="InsertSS">
+  		insert into stuscore (id_stu,term,chinese,math,english,physical,chemical,biology,history,policy,geography,gym)
+  		values (#{stuId},#{term},#{chinese},#{math},#{english},#{physical},#{chemical},#{biology},#{history},#{policy},#{geography},#{gym})
+	</insert>
+
+    <delete id="deleteScrById" >
+		DELETE from stuscore
+		where
+		id_stu = #{id} and term = #{t}
+
+	</delete>
+
+
+	<!--身心健康查询部分-->
+	<select id="queryHeById" resultType="edu.uestc.java.group9.edums.entity.StuHealth" parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		*
+		FROM
+		stuhealth
+		WHERE
+		id_stu = #{id}
+	</select>
+
+	<select id="queryAllHe" resultType="edu.uestc.java.group9.edums.entity.StuHealth">
+		SELECT
+			*
+		FROM
+			stuhealth
+		ORDER BY
+			id_stu
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<update id="updateSH">
+		UPDATE stuhealth
+		SET height = #{height}, weight =#{weight}, disease =#{disease}
+		WHERE
+			id_stu = #{stuId}
+	</update>
+
+	<insert id="InsertSH">
+  		insert into stuhealth (id_stu,height,weight,disease)
+  		values (#{stuId},#{height},#{weight},#{disease})
+	</insert>
+
+
+	<delete id="deleteHeById" parameterType="Long">
+		DELETE from stuhealth where id_stu=#{id}
+	</delete>
+
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<select id="queryMsgById" resultType="edu.uestc.java.group9.edums.entity.StuMessage" parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		*
+		FROM
+		stumessage
+		WHERE
+		id_stu = #{ID}
+	</select>
+
+	<select id="queryAllMsg" resultType="edu.uestc.java.group9.edums.entity.StuMessage">
+		SELECT
+			*
+		FROM
+			stumessage
+		ORDER BY
+			id_stu
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<insert id="InsertSM">
+		insert into stumessage (id_stu,name_stu,classNum_stu,IDcard_stu,school,enterdate_stu,gradate,phone_stu)
+		values (#{id_stu},#{name_stu},#{classNum_stu},#{IDcard_stu},#{school},#{enterdate_stu},#{gradate},#{phone_stu})
+	</insert>
+
+	<update id="updateSM">
+		UPDATE stumessage
+		SET name_stu = #{name_stu}, classNum_stu = #{classNum_stu}, IDcard_stu = #{IDcard_stu}, school = #{school}, enterdate_stu = #{enterdate_stu}, gradate = #{gradate}, phone_stu = #{phone_stu}
+		WHERE
+			id_stu = #{id_stu}
+	</update>
+
+	<delete id="deleteMsgById" parameterType="Long">
+  		DELETE from stumessage
+  		where id_stu = #{ID }
+	</delete>
+
+	<select id="queryEvlById" resultType="edu.uestc.java.group9.edums.entity.StuEval" parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		*
+		FROM
+		stueval
+		WHERE
+		id_stu = #{ID}
+	</select>
+
+	<select id="queryAllEvl" resultType="edu.uestc.java.group9.edums.entity.StuEval">
+		SELECT
+			*
+		FROM
+			stueval
+		ORDER BY
+			id_stu
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<insert id="InsertSE">
+		insert into stueval (id_stu,virtue_stu,civicliteracy_stu,learning_stu,communicate_stu,attend_stu,classbehavior_stu)
+		values (#{id_stu},#{virtue_stu},#{civicliteracy_stu},#{learning_stu},#{communicate_stu},#{attend_stu},#{classbehavior_stu})
+	</insert>
+
+	<update id="updateSE">
+		UPDATE stueval
+		SET virtue_stu = #{virtue_stu}, civicliteracy_stu = #{civicliteracy_stu}, learning_stu = #{learning_stu}, communicate_stu = #{communicate_stu}, attend_stu = #{attend_stu}, classbehavior_stu = #{classbehavior_stu}
+		WHERE
+			id_stu = #{id_stu}
+	</update>
+
+	<delete id="deleteEvlById" parameterType="Long">
+  		DELETE from stueval
+  		where id_stu = #{ID}
+	</delete>
+
+</mapper>

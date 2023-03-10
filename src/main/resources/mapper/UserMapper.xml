@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.uestc.java.group9.edums.mapper.UserMapper">
+
+    <select id="selectByUsernameAndPassword" resultType="edu.uestc.java.group9.edums.entity.User">
+        SELECT * FROM user WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <select id="selectAll" resultType="edu.uestc.java.group9.edums.entity.User">
+        SELECT * FROM user LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="selectByID" resultType="edu.uestc.java.group9.edums.entity.User">
+        SELECT * FROM user WHERE ID = #{ID};
+    </select>
+
+    <select id="selectByUsername" resultType="edu.uestc.java.group9.edums.entity.User">
+        SELECT * FROM user WHERE username = #{username};
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="ID" parameterType="edu.uestc.java.group9.edums.entity.User">
+        INSERT INTO user (ID, username, password, avatar, email)
+        VALUE (#{ID}, #{username}, #{password}, #{avatar}, #{email})
+    </insert>
+
+    <delete id="deleteByUsername">
+        DELETE FROM user WHERE username = #{username}
+    </delete>
+
+    <delete id="deleteByID">
+        DELETE FROM user WHERE ID = #{ID}
+    </delete>
+
+    <update id="update" parameterType="edu.uestc.java.group9.edums.entity.User">
+        UPDATE user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="email != null">
+                email = #{email}
+            </if>
+        </set>
+        WHERE ID = #{ID}
+    </update>
+
+</mapper>

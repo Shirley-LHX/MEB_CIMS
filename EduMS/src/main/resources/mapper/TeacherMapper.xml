@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.uestc.java.group9.edums.mapper.TeacherMapper">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <select id="queryByTeacherId" resultType="edu.uestc.java.group9.edums.entity.TeacherInformation" parameterType="long">
+        <!-- 具体的sql -->
+        SELECT
+        TeacherID,
+        TeacherName,
+        TeacherGender,
+		TeacherAge,
+ 		TeacherIDNumber,
+		TeacherEducation,
+		TeacherTeachAge,
+		TeachUnit,
+		TeachSubject,
+		Achievement,
+		TitleName
+        FROM
+        TeacherInformation
+        WHERE
+        TeacherID = #{teacherId}
+    </select>
+
+	<select id="queryById" resultType="edu.uestc.java.group9.edums.entity.TeacherInformation" parameterType="long">
+		<!-- 具体的sql -->
+		SELECT
+		TeacherID,
+		TeacherName,
+		TeacherGender,
+		TeacherAge,
+		TeacherIDNumber,
+		TeacherEducation,
+		TeacherTeachAge,
+		TeachUnit,
+		TeachSubject,
+		Achievement,
+		TitleName
+		FROM
+		TeacherInformation
+		WHERE
+		TeacherID = #{teacherId}
+	</select>
+
+    <select id="queryAll" resultType="edu.uestc.java.group9.edums.entity.TeacherInformation">
+		SELECT
+        TeacherID,
+        TeacherName,
+        TeacherGender,
+		TeacherAge,
+ 		TeacherIDNumber,
+		TeacherEducation,
+		TeacherTeachAge,
+		TeachUnit,
+		TeachSubject,
+		Achievement,
+		TitleName
+		FROM
+		TeacherInformation
+		ORDER BY
+		TeacherID
+		LIMIT #{offset}, #{limit}
+	</select>
+
+    <update id="update">
+		UPDATE TeacherInformation
+		SET TeacherName = #{teacherName}, TeacherGender =#{teacherGender},TeacherAge =#{teacherAge},
+ 		TeacherIDNumber=#{teacherIDNumber},TeacherEducation=#{teacherEducation},TeacherTeachAge=#{teacherTeachAge},
+ 		TeachUnit=#{teachUnit},TeachSubject=#{teachSubject},Achievement=#{achievement},TitleName=#{titleName}
+		WHERE
+			TeacherID = #{teacherId}
+	</update>
+
+    <insert id="insertTeacher">
+  		insert into TeacherInformation (TeacherName,TeacherGender,TeacherAge,TeacherIDNumber,TeacherEducation,TeacherTeachAge,TeachUnit,TeachSubject,Achievement,TitleName)
+  		values (#{teacherName},#{teacherGender},#{teacherAge},#{teacherIDNumber},#{teacherEducation},#{teacherTeachAge},#{teachUnit},#{teachSubject},#{achievement},#{titleName})
+	</insert>
+
+    <select id="getSalary" resultType="edu.uestc.java.group9.edums.entity.vo.TeacherVo">
+		select TeacherInformation.TeacherID TeacherID, TeacherInformation.TeacherName TeacherName,Title.TitleName TitleName,Title.BasicSalary BasicSalary,Title.GradeSalary GradeSalary,Title.PerformanceSalary PerformanceSalary
+		  from TeacherInformation INNER JOIN Title on Title.TitleName = TeacherInformation.TitleName
+	</select>
+    <delete id="deleteByTeacherId">
+		DELETE from TeacherInformation where TeacherID=#{teacherId}
+	</delete>
+</mapper>
